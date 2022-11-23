@@ -172,7 +172,8 @@ Key words: 10x genomics, scATAC-seq, PBMC
     genome.df=inferloop.getGenomeDF.hg19()
     
     conns=inferloop.cicero(indata, used_coords, genome.df)
-
+    
+    saveRDS(conns, file='conns_cicero.rds')
 
 ## Section III, Using InferLoop to infer loop signals
 

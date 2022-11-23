@@ -90,6 +90,8 @@ Key words: 10x genomics, scATAC-seq, PBMC
     peaks <- keepStandardChromosomes(peaks, pruning.mode = "coarse")
     peaks <- subsetByOverlaps(x = peaks, ranges = blacklist_hg19, invert = TRUE)
     
+    saveRDS(peaks, 'peaks_macs2.rds')
+    
     macs2_counts <- FeatureMatrix(
         fragments = Fragments(pbmc),
         features = peaks,
@@ -99,7 +101,7 @@ Key words: 10x genomics, scATAC-seq, PBMC
     pbmc[["macs2"]] <- CreateChromatinAssay(
         counts = macs2_counts,
         fragments = 'atac_v1_pbmc_10k_fragments.tsv.gz',
-        annotation = Annotation(pbmc)
+        annotation = annotations
         )
     
     DefaultAssay(pbmc)='macs2'
@@ -110,6 +112,10 @@ Key words: 10x genomics, scATAC-seq, PBMC
     pbmc <- RunUMAP(object = pbmc, reduction = 'lsi', dims = 2:30)
     pbmc <- FindNeighbors(object = pbmc, reduction = 'lsi', dims = 2:30)
     pbmc <- FindClusters(object = pbmc, verbose = FALSE, algorithm = 3)
+    
+    DimPlot(object = pbmc, label = TRUE) + NoLegend()
+
+    gene.activities <- GeneActivity(pbmc)
 
     pbmc[['RNA']] <- CreateAssayObject(counts = gene.activities)
     DefaultAssay(pbmc)='RNA'
@@ -140,7 +146,9 @@ Key words: 10x genomics, scATAC-seq, PBMC
 
 [The official website of Cicero](https://cole-trapnell-lab.github.io/cicero-release/docs/)  
     
-    
+    library(monocle)
+    librayy(cicero)
+    source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
     
     
     

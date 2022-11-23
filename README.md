@@ -5,6 +5,8 @@
 This tool is designed for inferring the loop signals of cell clusters (bins) in scATAC-seq data
 
 
+Download demo data:
+
 [demo_h5](https://cf.10xgenomics.com/samples/cell-atac/1.0.1/atac_v1_pbmc_10k/atac_v1_pbmc_10k_filtered_peak_bc_matrix.h5)
 
 [demo_metadata](https://cf.10xgenomics.com/samples/cell-atac/1.0.1/atac_v1_pbmc_10k/atac_v1_pbmc_10k_singlecell.csv)

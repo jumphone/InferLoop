@@ -23,7 +23,7 @@ Key words: 10x genomics, scATAC-seq, PBMC
 
 [The official website of Signac](https://stuartlab.org/signac/)
 
-## Section 1, Using Signac to process the scATAC-seq data
+## Section I, Using Signac to process the scATAC-seq data
 
     # /home/toolkit/tools/R4.2.0/bin/R
     setwd('/home/disk/database/data/ICS_scHIC/fzz_website_demo')
@@ -115,7 +115,27 @@ Key words: 10x genomics, scATAC-seq, PBMC
     DefaultAssay(pbmc)='RNA'
     pbmc <- RunTFIDF(pbmc)
     
-    
+    pbmc_rna <- readRDS("pbmc_10k_v3.rds")
+
+    transfer.anchors <- FindTransferAnchors(
+        reference = pbmc_rna,
+        query = pbmc,
+        reduction = 'cca'
+        )
+
+     predicted.labels <- TransferData(
+         anchorset = transfer.anchors,
+         refdata = pbmc_rna$celltype,
+         weight.reduction = pbmc[['lsi']],
+         dims = 2:30
+         )
+
+    pbmc <- AddMetaData(object = pbmc, metadata = predicted.labels)
+
+
+## Section II, Using Cicero to predict global loops
+
+[The official website of Cicero](https://cole-trapnell-lab.github.io/cicero-release/docs/)  
     
     
     

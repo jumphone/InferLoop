@@ -21,7 +21,7 @@ Key words: 10x genomics, scATAC-seq, PBMC
 
 [The official website of Signac](https://stuartlab.org/signac/)
 
-## Section 1, use Signac to process the scATAC-seq data
+## Section 1, Using Signac to process the scATAC-seq data
 
     # /home/toolkit/tools/R4.2.0/bin/R
     setwd('/home/disk/database/data/ICS_scHIC/fzz_website_demo')

@@ -176,7 +176,17 @@ Key words: 10x genomics, scATAC-seq, PBMC
     saveRDS(conns, file='conns_cicero.rds')
 
 ## Section III, Using InferLoop to infer loop signals
-
     
+    source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
+    pbmc=readRDS(file='pbmc_signac.rds')
+    DefaultAssay(pbmc)='macs2'
+    conns=readRDS(file='conns_cicero.rds')
+    
+    inferloop.writeNet(conns, "net.txt", cut=200000)
+    
+    indata=as.matrix(pbmc[['macs2']]@data)
+    used_coords=pbmc@reductions$umap@cell.embeddings
+    
+    BIN=inferloop.generateBin(indata,used_coords, n=100)
     
     

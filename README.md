@@ -138,6 +138,20 @@ Key words: 10x genomics, scATAC-seq, PBMC
 
     pbmc <- AddMetaData(object = pbmc, metadata = predicted.labels)
 
+    plot1 <- DimPlot(
+        object = pbmc_rna,
+        group.by = 'celltype',
+        label = TRUE,
+        repel = TRUE) + NoLegend() + ggtitle('scRNA-seq')
+
+    plot2 <- DimPlot(
+        object = pbmc,
+        group.by = 'predicted.id',
+        label = TRUE,
+        repel = TRUE) + NoLegend() + ggtitle('scATAC-seq')
+
+    plot1 + plot2
+    
     saveRDS(pbmc, file='pbmc_signac.rds')
     
     

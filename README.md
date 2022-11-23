@@ -161,9 +161,21 @@ Key words: 10x genomics, scATAC-seq, PBMC
 [The official website of Cicero](https://cole-trapnell-lab.github.io/cicero-release/docs/)  
     
     library(monocle)
-    librayy(cicero)
+    library(cicero)
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
     
+    pbmc=readRDS(file='pbmc_signac.rds')
+    DefaultAssay(pbmc)='macs2'
+    
+    indata=as.matrix(pbmc[['macs2']]@data)
+    used_coords=pbmc@reductions$umap@cell.embeddings
+    genome.df=inferloop.getGenomeDF.hg19()
+    
+    conns=inferloop.cicero(indata, used_coords, genome.df)
+
+
+## Section III, Using InferLoop to infer loop signals
+
     
     
     

@@ -132,6 +132,9 @@ Key words: 10x genomics, scATAC-seq, PBMC
 
     pbmc <- AddMetaData(object = pbmc, metadata = predicted.labels)
 
+    saveRDS(pbmc, file='pbmc_signac.rds')
+    
+    
 
 ## Section II, Using Cicero to predict global loops
 

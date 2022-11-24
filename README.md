@@ -281,9 +281,11 @@ Key words: 10x genomics, scATAC-seq, PBMC
     
     Idents(pbmc)=pbmc$predicted.id
     
-    cd4_markers=FindMarkers(pbmc, ident.1='CD4 Naive',only.pos=T, min.pct = 0.1, logfc.threshold = 0.1)
-    cd8_markers=FindMarkers(pbmc, ident.1='CD8 Naive',only.pos=T, min.pct = 0.1, logfc.threshold = 0.1)
+    cd4_markers=FindMarkers(pbmc, ident.1='CD4 Naive',test.use='t', only.pos=T, min.pct = 0.1, logfc.threshold = 0.1,verbose=T)
+    cd8_markers=FindMarkers(pbmc, ident.1='CD8 Naive',test.use='t', only.pos=T, min.pct = 0.1, logfc.threshold = 0.1,verbose=T)
     
+    saveRDS(cd4_markers, file='cd4_markers.rds')
+    saveRDS(cd8_markers, file='cd8_markers.rds')
     
     
     

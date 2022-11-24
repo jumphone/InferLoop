@@ -8,7 +8,7 @@ This tool is designed for inferring the loop signals of cell clusters (bins) in 
 
 ## 1. Instruction:
 
-Section | Platform | Purpose
+Section | Platform | Content
 :-------------------------:|:-------------------------:|:-------------------------
 Section I | R | [Using Signac to process the scATAC-seq data](#section-i-using-signac-to-process-the-scatac-seq-data)
 Section II | R | [Using Cicero to predict global loops](#section-ii-using-cicero-to-predict-global-loops)

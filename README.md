@@ -175,18 +175,73 @@ Key words: 10x genomics, scATAC-seq, PBMC
     
     saveRDS(conns, file='conns_cicero.rds')
 
-## Section III, Using InferLoop to infer loop signals
+## Section III, Using InferLoop.R to prepare input files
     
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
+    
     pbmc=readRDS(file='pbmc_signac.rds')
     DefaultAssay(pbmc)='macs2'
     conns=readRDS(file='conns_cicero.rds')
     
-    inferloop.writeNet(conns, "net.txt", cut=200000)
+    # The output loops of Cicero are not unique, and use top 400,000 loops will get top 200,000 unique loops
+    inferloop.writeNet(conns, "net.txt", cut=400000) 
     
     indata=as.matrix(pbmc[['macs2']]@data)
     used_coords=pbmc@reductions$umap@cell.embeddings
     
     BIN=inferloop.generateBin(indata,used_coords, n=100)
+    saveRDS(BIN, file='BIN.rds')
+    
+    CLST=BIN$clst
+    write.table(BIN$mat,file='mat.txt', row.names=T,col.names=T,quote=F,sep='\t')
+    
+    
+## Section IV, Using InferLoop to infer loop signals ( Python3 )
+    
+    mkdir output
+    python3 inferloop/step0_uniqNet.py net.txt output/net_uniq.txt
+    python3 inferloop/step1_buildIndex.py output/net_uniq.txt mat.txt output/mat.index
+    python3 inferloop/step2_runInferLoop.py output/mat.index output/signal_mat.txt
+    
+    
+## Section V, Generating inferred loop signals (ILS) of each cell type ( R )
+    
+    source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
+    
+    pbmc=readRDS(file='pbmc_signac.rds')
+    DefaultAssay(pbmc)='macs2'
+    
+    MAT=inferloop.loadSignal('output/signal_mat.txt')
+    
+    CLST=readRDS('BIN.rds')$clst    
+    MAT_CELL=inferloop.bin2cell(MAT, CLST)
+    TYPE=pbmc$predicted.id
+    MAT_TYPE=.generate_mean(MAT_CELL, TYPE)
+    
+    saveRDS(MAT_TYPE, 'signal_mat_type.rds')
+    
+    library(trackViewer)
+    
+    
+    
+    pbmc[['ILS']]=CreateAssayObject(data = MAT_CELL)
+    
+    
+    
+    
+
+## Section VI, 
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     

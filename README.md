@@ -7,6 +7,8 @@ This tool is designed for inferring the loop signals of cell clusters (bins) in 
 ## Content:
 
 :-------------------------:|:-------------------------:
+x | x
+
 Section I | [Using Signac to process the scATAC-seq data](#section-i-using-signac-to-process-the-scatac-seq-data) 
 Section II | [Using Cicero to predict global loops](#section-ii-using-cicero-to-predict-global-loops)
 Section III | [Preparing input files of InferLoop](#section-iii-preparing-input-files-of-inferloop)

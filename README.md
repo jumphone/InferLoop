@@ -41,7 +41,6 @@ Section VI | R | [Identifying cell-type specific loops](#section-vi-identifying-
     import numpy
     from scipy import stats
 
-
 </br>
 
 ## 3. Demo data:

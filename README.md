@@ -4,6 +4,15 @@
 
 This tool is designed for inferring the loop signals of cell clusters (bins) in scATAC-seq data
 
+# Workflow:
+
+* [Section I, Using Signac to process the scATAC-seq data](#)
+* [Section II, Using Cicero to predict global loops](#)
+* [Section III, Preparing input files of InferLoop](#)
+* [Section IV, Using InferLoop to infer loop signals](#)
+* [Section V, Inferring cell-type specific loop signals](#)
+* [Section VI, Identifying cell-type specific loops](#)
+
 
 # Demo data:
 
@@ -18,6 +27,7 @@ Key words: 10x genomics, scATAC-seq, PBMC
 * [atac_v1_pbmc_10k_fragments.tsv.gz.tbi](https://cf.10xgenomics.com/samples/cell-atac/1.0.1/atac_v1_pbmc_10k/atac_v1_pbmc_10k_fragments.tsv.gz.tbi)
 
 * [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com/pbmc_10k_v3.rds)
+
 
 # Demo code:
 

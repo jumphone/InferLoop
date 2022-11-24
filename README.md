@@ -4,9 +4,11 @@
 
 This tool is designed for inferring the loop signals of cell clusters (bins) in scATAC-seq data
 
+</br>
+
 ## Contents:
 
-Sections | x
+Sections | Purposes
 :-------------------------:|:-------------------------
 Section I | [Using Signac to process the scATAC-seq data](#section-i-using-signac-to-process-the-scatac-seq-data) 
 Section II | [Using Cicero to predict global loops](#section-ii-using-cicero-to-predict-global-loops)
@@ -15,6 +17,7 @@ Section IV | [Using InferLoop to infer loop signals](#section-iv-using-inferloop
 Section V | [Inferring cell-type specific loop signals](#section-v-inferring-cell-type-specific-loop-signals)
 Section VI | [Identifying cell-type specific loops](#section-vi-identifying-cell-type-specific-loops)
 
+</br>
 
 ## Demo data:
 
@@ -30,6 +33,7 @@ Key words: 10x genomics, scATAC-seq, PBMC
 
 * [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com/pbmc_10k_v3.rds)
 
+</br>
 
 ## Demo code:
 
@@ -166,7 +170,7 @@ Key words: 10x genomics, scATAC-seq, PBMC
     
     saveRDS(pbmc, file='pbmc_signac.rds')
     
-    
+</br>    
 
 ### Section II, Using Cicero to predict global loops
 
@@ -187,6 +191,8 @@ Key words: 10x genomics, scATAC-seq, PBMC
     
     saveRDS(conns, file='conns_cicero.rds')
 
+</br>
+
 ### Section III, Preparing input files of InferLoop
     
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
@@ -206,7 +212,8 @@ Key words: 10x genomics, scATAC-seq, PBMC
     
     CLST=BIN$clst
     write.table(BIN$mat,file='mat.txt', row.names=T,col.names=T,quote=F,sep='\t')
-    
+
+</br>
     
 ### Section IV, Using InferLoop to infer loop signals ( Python3 )
     
@@ -215,7 +222,8 @@ Key words: 10x genomics, scATAC-seq, PBMC
     python3 inferloop/step1_buildIndex.py output/net_uniq.txt mat.txt output/mat.index
     python3 inferloop/step2_runInferLoop.py output/mat.index output/signal_mat.txt
     
-    
+</br>
+
 ### Section V, Inferring cell-type specific loop signals
     
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
@@ -286,7 +294,9 @@ Key words: 10x genomics, scATAC-seq, PBMC
 
 <img src="https://fzhang.bioinfo-lab.com/img/f01_celltype_ILS.png" width="500">
 
-    
+</br>
+
+
 ### Section VI, Identifying cell-type specific loops   
     
     pbmc[['ILS']]=CreateAssayObject(data = MAT_CELL)

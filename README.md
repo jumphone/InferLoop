@@ -4,16 +4,16 @@
 
 This tool is designed for inferring the loop signals of cell clusters (bins) in scATAC-seq data
 
-## Content:
+## Contents:
 
-x | x
+Sections | 
 :-------------------------:|:-------------------------:
-Section I | [Using Signac to process the scATAC-seq data](#section-i-using-signac-to-process-the-scatac-seq-data) 
-Section II | [Using Cicero to predict global loops](#section-ii-using-cicero-to-predict-global-loops)
-Section III | [Preparing input files of InferLoop](#section-iii-preparing-input-files-of-inferloop)
-Section IV | [Using InferLoop to infer loop signals](#section-iv-using-inferloop-to-infer-loop-signals--python3-)
-Section V | [Inferring cell-type specific loop signals](#section-v-inferring-cell-type-specific-loop-signals)
-Section VI | [Identifying cell-type specific loops](#section-vi-identifying-cell-type-specific-loops)
+Section I | :[Using Signac to process the scATAC-seq data](#section-i-using-signac-to-process-the-scatac-seq-data) 
+Section II | :[Using Cicero to predict global loops](#section-ii-using-cicero-to-predict-global-loops)
+Section III | :[Preparing input files of InferLoop](#section-iii-preparing-input-files-of-inferloop)
+Section IV | :[Using InferLoop to infer loop signals](#section-iv-using-inferloop-to-infer-loop-signals--python3-)
+Section V | :[Inferring cell-type specific loop signals](#section-v-inferring-cell-type-specific-loop-signals)
+Section VI | :[Identifying cell-type specific loops](#section-vi-identifying-cell-type-specific-loops)
 
 
 ## Demo data:

@@ -267,12 +267,12 @@ Key words: 10x genomics, scATAC-seq, PBMC
     viewerStyleW <- optSty$style
     viewTracks(trackListW, gr=range, viewerStyle=viewerStyleW)   
     
-    pdf('f01_celltype_ILS.pdf',width=15,height=15)
+    pdf('f01_celltype_ILS.pdf',width=7,height=7)
     viewTracks(trackListW, gr=range, viewerStyle=viewerStyleW) 
     dev.off()
     ##################################
 
-<img src="https://fzhang.bioinfo-lab.com/img/f01_celltype_ILS.png" width="250">
+<img src="https://fzhang.bioinfo-lab.com/img/f01_celltype_ILS.png" width="500">
 
     
 ## Section VI, Identifying cell-type specific loops   
@@ -343,12 +343,12 @@ Key words: 10x genomics, scATAC-seq, PBMC
     
     
     
-    pdf('f02_celltype_loops.pdf',width=15,height=15)
+    pdf('f02_celltype_loops.pdf',width=7,height=7)
     viewTracks(trackListW, gr=range, viewerStyle=viewerStyleW) 
     dev.off()
     ##################################
 
-<img src="https://fzhang.bioinfo-lab.com/img/f02_celltype_loops.png" width="250">
+<img src="https://fzhang.bioinfo-lab.com/img/f02_celltype_loops.png" width="500">
     
     
     

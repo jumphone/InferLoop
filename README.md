@@ -221,8 +221,79 @@ Key words: 10x genomics, scATAC-seq, PBMC
     saveRDS(MAT_TYPE, 'signal_mat_type.rds')
     
     library(trackViewer)
+    library(InteractionSet)
+    
+    library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+    library(org.Hs.eg.db)
+    
+    #####################
+    # CD4 gene, chr12:6898638-6929976
+    range <- GRanges("chr12", IRanges(6898638-20000, 6929976+20000))
+    ids <- getGeneIDsFromTxDb(range, TxDb.Hsapiens.UCSC.hg19.knownGene)
+    symbols <- mget(ids, org.Hs.egSYMBOL)
+    genes <- geneTrack(ids, TxDb.Hsapiens.UCSC.hg19.knownGene, 
+                   symbols, asList=FALSE)
+                   
+    #####################
+    loop=inferloop.splitLoop(rownames(MAT))
+    anchor1=inferloop.bed2granges(inferloop.splitLoop(loop[,1], '-',3))
+    anchor2=inferloop.bed2granges(inferloop.splitLoop(loop[,2], '-',3))
+    gi=GInteractions(anchor1,anchor2)
+    
+    TMP=MAT_TYPE
+    TMP[which(TMP<0)]=0
+    score_type=as.data.frame(TMP)
+    score_type[which(score_type<0)]=0
+    score_CD4_Naive=score_type$'CD4 Naive'
+    score_CD8_Naive=score_type$'CD8 Naive'
+    
+    gi_cd4=gi
+    gi_cd8=gi
+    mcols(gi_cd4)$score=score_CD4_Naive*100
+    mcols(gi_cd8)$score=score_CD8_Naive*100  
+    ############################
+    
+    cd4 <- gi2track(gi_cd4)
+    cd8 <- gi2track(gi_cd8)
+    ############################
+    setTrackStyleParam(cd4, "tracktype", "link")
+    setTrackStyleParam(cd4, "breaks", c(seq(from=0, to=50, by=10), 200))
+    setTrackStyleParam(cd4, "color", c("white", "red1"))
+    setTrackStyleParam(cd8, "tracktype", "link")
+    setTrackStyleParam(cd8, "breaks", c(seq(from=0, to=50, by=10), 200))
+    setTrackStyleParam(cd8, "color", c("white", "royalblue3"))
+    
+    optSty <- optimizeStyle(trackList(genes, cd4, cd8), theme="safe")
+    trackListW <- optSty$tracks
+    viewerStyleW <- optSty$style
+    viewTracks(trackListW, gr=range, viewerStyle=viewerStyleW)   
+    
+    pdf('f01_celltype_ILS.pdf',width=7,height=7)
+    viewTracks(trackListW, gr=range, viewerStyle=viewerStyleW) 
+    dev.off()
+    ##################################
     
     
+ ## Section V, Generating inferred loop signals (ILS) of each cell type   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    viewTracks(trackList(genes, cd4, cd8, heightDist=c(1, 3, 3)), gr=range, autoOptimizeStyle = T)
+           
+           
+           
+           
+    gi <- readRDS(system.file("extdata", "nij.chr6.51120000.53200000.gi.rds", package="trackViewer"))
+head(gi)
     
     pbmc[['ILS']]=CreateAssayObject(data = MAT_CELL)
     

@@ -175,7 +175,7 @@ Key words: 10x genomics, scATAC-seq, PBMC
     
     saveRDS(conns, file='conns_cicero.rds')
 
-## Section III, Using InferLoop.R to prepare input files
+## Section III, Preparing input files of InferLoop
     
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
     

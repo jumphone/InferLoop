@@ -19,6 +19,30 @@ Section VI | R | [Identifying cell-type specific loops](#section-vi-identifying-
 
 </br>
 
+## Requirements:
+
+R 4.2.0
+
+    library(data.table)
+    library(stringr)
+    library(parallel)
+    library(Seurat)
+    library(Signac)
+    library(monocle)
+    #monocle2, https://www.bioconductor.org/packages/release/bioc/html/monocle.html
+    library(cicero)
+    #cicero for monocle2, https://cole-trapnell-lab.github.io/cicero-release/docs/
+    library(glassoFast)
+
+Python 3.7.9 
+    import sys
+    import _pickle as pickle
+    import numpy
+    from scipy import stats
+
+
+</br>
+
 ## Demo data:
 
 Key words: scATAC-seq, 10x genomics, PBMC

@@ -204,7 +204,7 @@ Key words: 10x genomics, scATAC-seq, PBMC
     python3 inferloop/step2_runInferLoop.py output/mat.index output/signal_mat.txt
     
     
-## Section V, Generating inferred loop signals (ILS) of each cell type ( R )
+## Section V, Generating inferred loop signals (ILS) of each cell type
     
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
     

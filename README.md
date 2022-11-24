@@ -6,7 +6,7 @@ This tool is designed for inferring the loop signals of cell clusters (bins) in 
 
 </br>
 
-## 1. Contents:
+## 1. Instruction:
 
 Section | Platform | Purpose
 :-------------------------:|:-------------------------:|:-------------------------

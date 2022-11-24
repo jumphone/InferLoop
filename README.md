@@ -21,7 +21,7 @@ Section VI | R | [Identifying cell-type specific loops](#section-vi-identifying-
 
 ## Requirements:
 
-R 4.2.0
+### R 4.2.0
 
     library(data.table)
     library(stringr)
@@ -34,7 +34,7 @@ R 4.2.0
     #cicero for monocle2, https://cole-trapnell-lab.github.io/cicero-release/docs/
     library(glassoFast)
 
-Python 3.7.9 
+### Python 3.7.9 
 
     import sys
     import _pickle as pickle

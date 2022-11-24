@@ -204,7 +204,7 @@ Key words: 10x genomics, scATAC-seq, PBMC
     python3 inferloop/step2_runInferLoop.py output/mat.index output/signal_mat.txt
     
     
-## Section V, Generating inferred loop signals (ILS) of each cell type
+## Section V, Inferring cell-type specific loop signals
     
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
     
@@ -274,10 +274,15 @@ Key words: 10x genomics, scATAC-seq, PBMC
     ##################################
     
     
- ## Section V, Generating inferred loop signals (ILS) of each cell type   
+ ## Section V, Identifying cell-type specific loops   
     
+    pbmc[['ILS']]=CreateAssayObject(data = MAT_CELL)
+    DefaultAssay(pbmc)='ILS'
     
+    Idents(pbmc)=pbmc$predicted.id
     
+    cd4_markers=FindMarkers(pbmc, ident.1='CD4 Naive',only.pos=T, min.pct = 0.1, logfc.threshold = 0.1)
+    cd8_markers=FindMarkers(pbmc, ident.1='CD8 Naive',only.pos=T, min.pct = 0.1, logfc.threshold = 0.1)
     
     
     

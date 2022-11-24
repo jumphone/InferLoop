@@ -6,7 +6,7 @@ This tool is designed for inferring the loop signals of cell clusters (bins) in 
 
 </br>
 
-## Contents:
+## 1. Contents:
 
 Section | Platform | Purpose
 :-------------------------:|:-------------------------:|:-------------------------
@@ -19,7 +19,7 @@ Section VI | R | [Identifying cell-type specific loops](#section-vi-identifying-
 
 </br>
 
-## Requirements:
+## 2. Requirements:
 
 **R 4.2.0**
 
@@ -44,7 +44,7 @@ Section VI | R | [Identifying cell-type specific loops](#section-vi-identifying-
 
 </br>
 
-## Demo data:
+## 3. Demo data:
 
 Key words: scATAC-seq, 10x genomics, PBMC
 
@@ -58,7 +58,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 
 </br>
 
-## Demo code:
+## 4. Demo code:
 
 [The official website of Signac](https://stuartlab.org/signac/)
 

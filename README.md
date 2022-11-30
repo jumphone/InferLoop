@@ -13,7 +13,7 @@ Section| Content | Platform
 Section I | [Using Signac to process the scATAC-seq data](#section-i-using-signac-to-process-the-scatac-seq-data) | R
 Section II | [Using Cicero to predict global loops](#section-ii-using-cicero-to-predict-global-loops) | R
 Section III | [Preparing input files of InferLoop](#section-iii-preparing-input-files-of-inferloop) | R
-Section IV | [Using InferLoop to infer loop signals](#section-iv-using-inferloop-to-infer-loop-signals--python3-) | Python
+Section IV | [Using InferLoop to infer loop signals](#section-iv-using-inferloop-to-infer-loop-signals) | Python3 or R
 Section V | [Generating cell-type specific loop signals](#section-v-inferring-cell-type-specific-loop-signals) | R
 Section VI | [Identifying cell-type specific loops](#section-vi-identifying-cell-type-specific-loops) | R
 
@@ -237,8 +237,10 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 
 </br>
     
-### Section IV, Using InferLoop to infer loop signals ( Python3 )
-    
+### Section IV, Using InferLoop to infer loop signals
+
+Python3 version
+
     mkdir output
     python3 inferloop/step0_uniqNet.py net.txt output/net_uniq.txt
     python3 inferloop/step1_buildIndex.py output/net_uniq.txt mat.txt output/mat.index

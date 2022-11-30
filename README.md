@@ -194,6 +194,11 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     
 </br>    
 
+[Click back to the top](#)
+
+</br>
+</br>
+
 ### Section II, Using Cicero to predict global loops
 
 [The official website of Cicero](https://cole-trapnell-lab.github.io/cicero-release/docs/)  
@@ -213,6 +218,11 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     
     saveRDS(conns, file='conns_cicero.rds')
 
+</br>
+
+[Click back to the top](#)
+
+</br>
 </br>
 
 ### Section III, Preparing input files of InferLoop
@@ -236,6 +246,11 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     write.table(BIN$mat,file='mat.txt', row.names=T,col.names=T,quote=F,sep='\t')
 
 </br>
+
+[Click back to the top](#)
+
+</br>
+</br>
     
 ### Section IV, Using InferLoop to infer loop signals
 
@@ -257,6 +272,11 @@ R version, this version (~5 minutes) is slower than using Pyhton3 (~1 minute)
     MAT=inferloop.inferLoopSignal(mat, net_uniq)
     write.table(MAT,file='signal_mat.txt', row.names=T,col.names=T,quote=F,sep='\t')
     
+</br>
+
+[Click back to the top](#)
+
+</br>
 </br>
 
 ### Section V, Inferring cell-type specific loop signals
@@ -329,6 +349,11 @@ R version, this version (~5 minutes) is slower than using Pyhton3 (~1 minute)
 
 <img src="https://fzhang.bioinfo-lab.com/img/f01_celltype_ILS.png" width="500">
 
+</br>
+
+[Click back to the top](#)
+
+</br>
 </br>
 
 
@@ -407,6 +432,11 @@ R version, this version (~5 minutes) is slower than using Pyhton3 (~1 minute)
 
 <img src="https://fzhang.bioinfo-lab.com/img/f02_celltype_loops.png" width="500">
     
+
+[Click back to the top](#)
+
+</br>
+</br>
     
     
     

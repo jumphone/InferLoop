@@ -248,7 +248,7 @@ Python3 version
     
 </br>
 
-R version, this version (~5 minutes) is much slower than using Pyhton3 (~1 minute)
+R version, this version (~5 minutes) is slower than using Pyhton3 (~1 minute)
 
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
     mat=inferloop.loadSignal('mat.txt')

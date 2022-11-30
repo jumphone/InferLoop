@@ -14,35 +14,14 @@ INDEX_DATA_FILE=sys.argv[1]
 OUT_FILE=sys.argv[2]
 SPLIT=':'
 
+
 class Used_Data:
-    import numpy
-    def __init__(self, EXP, POOL_LENGTH, PAIR_POOL, header):
+    def __init__(self, EXP, EXP_LENGTH, EDGE, header):
         self.EXP = EXP
-        self.POOL_LENGTH = POOL_LENGTH
-        self.PAIR_POOL = PAIR_POOL
+        self.EXP_LENGTH = EXP_LENGTH
         self.header = header
         ##############
-        self.EDGE = []
-        for this_edge in self.PAIR_POOL:
-            self.EDGE.append(this_edge)
-        self.EDGE.sort()
-        ##############
-        self.EXP_MEAN = {}
-        for gene in EXP:
-            self.EXP_MEAN[gene]=numpy.mean(EXP[gene])
-        ##############
-        self.EXP_STD = {}
-        for gene in EXP:
-            self.EXP_STD[gene]=numpy.std(EXP[gene])
-        ##############
-        self.EXP_MIN = {}
-        for gene in EXP:
-            self.EXP_MIN[gene]=numpy.min(EXP[gene])
-        ##############
-        self.EXP_MAX = {}
-        for gene in EXP:
-            self.EXP_MAX[gene]=numpy.max(EXP[gene])
-
+        self.EDGE = EDGE
 
 
 
@@ -54,7 +33,7 @@ print("loading done !")
 
 header=data.header
 NETGENE=set()
-for edge in data.PAIR_POOL:
+for edge in data.EDGE:
     p1=edge.split(SPLIT)[0]
     p2=edge.split(SPLIT)[1]
     NETGENE.add(p1)
@@ -143,6 +122,9 @@ def SINGLE(p1, p2, p1_exp, p2_exp):
     this_out=calZ(p1_exp, p2_exp, R)
     Z=[]
     for z in this_out:
+        #################
+        #z=round(z,3)
+        ###################
         if str(z)=='nan':
             z=0
         Z.append(str(z))
@@ -150,10 +132,11 @@ def SINGLE(p1, p2, p1_exp, p2_exp):
     return(out)
 
 
-
+print('nrow(output)='+str(len(data.EDGE)))
 
 open(OUT_FILE,'w').write('\t'.join(header)+'\n')
 
+i=1
 for edge in data.EDGE:
     ps=edge.split(SPLIT)
     p1=ps[0]
@@ -167,9 +150,11 @@ for edge in data.EDGE:
         
         this_out=SINGLE(p1, p2, p1_exp,p2_exp)
         open(OUT_FILE,'a').write(this_out)
+    if i % 10000==1:
+        print(str(i)+' / '+str(len(data.EDGE)))
+    i=i+1
 
-
-        
+print('finished!!!') 
 
 
 

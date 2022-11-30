@@ -246,6 +246,15 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     
 </br>
 
+### Section IV ( R version ), Using InferLoop to infer loop signals ( this version is slower than Pyhton3 )
+    
+    source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
+    mat=inferloop.loadSignal('mat.txt')
+    net=read.table('net.txt',sep='\t',header=F,row.names=NULL)
+    net_uniq=inferloop.getUniqLoop(net)
+    
+</br>
+
 ### Section V, Inferring cell-type specific loop signals
     
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')

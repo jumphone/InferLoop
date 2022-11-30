@@ -247,12 +247,15 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 </br>
 
 ### Section IV ( R version ), Using InferLoop to infer loop signals ( this version is slower than Pyhton3 )
-    
+
+Time: around 1 minute (Python3), 
+
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
     mat=inferloop.loadSignal('mat.txt')
     net=read.table('net.txt',sep='\t',header=F,row.names=NULL)
     net_uniq=inferloop.getUniqLoop(net)
-    
+    MAT=inferloop.inferLoopSignal(mat, net_uniq)
+    write.table(MAT,file='signal_mat.txt', row.names=T,col.names=T,quote=F,sep='\t')
     
 </br>
 

@@ -246,11 +246,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     
 </br>
 
-R version, this version is much slower than using Pyhton3
-
-Python3: around 1 minute
-
-R: around 5 minutes
+R version, this version (~5 minutes) is much slower than using Pyhton3 (~1 minute)
 
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
     mat=inferloop.loadSignal('mat.txt')

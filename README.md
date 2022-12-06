@@ -254,7 +254,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     
 ### Section IV, Using InferLoop to infer loop signals
 
-Python3 version
+#### Python3 version
 
     mkdir output
     python3 inferloop/step0_uniqNet.py net.txt output/net_uniq.txt
@@ -263,7 +263,7 @@ Python3 version
     
 </br>
 
-R version, this version (~5 minutes) is slower than using Pyhton3 (~1 minute)
+#### R version, this version (~5 minutes) is slower than using Pyhton3 (~1 minute)
 
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
     mat=inferloop.loadSignal('mat.txt')

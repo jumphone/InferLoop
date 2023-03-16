@@ -23,23 +23,23 @@ Section VI | [Identifying cell-type specific loops](#section-vi-identifying-cell
 
 **R 4.2.0**
 
-    library(data.table)
-    library(stringr)
-    library(parallel)
-    library(Seurat)
-    library(Signac)
-    library(monocle)
+    library(data.table) # 1.14.2
+    library(stringr)    # 1.4.0
+    library(parallel)   # 4.2.0
+    library(Seurat)     # 4.1.1
+    library(Signac)     # 1.7.0
+    library(monocle)    # 2.24.1
     #monocle2, https://www.bioconductor.org/packages/release/bioc/html/monocle.html
-    library(cicero)
+    library(cicero)     # 0.8.10
     #cicero for monocle2, https://cole-trapnell-lab.github.io/cicero-release/docs/
-    library(glassoFast)
+    library(glassoFast) # 1.0
 
 **Python 3.7.9**
 
     import sys
-    import _pickle as pickle
-    import numpy
-    from scipy import stats
+    import _pickle as pickle  
+    import numpy              # 1.20.0
+    from scipy import stats   # 1.5.4
 
 </br>
 

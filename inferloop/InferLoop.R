@@ -93,25 +93,6 @@ inferloop.calILS<-function(X, Y, r=0){
 
 
 
-#####################
-#inferloop.getUniqLoop <-function(net){
-#    net=as.matrix(net)
-#    new=rep(0,nrow(net))
-#    old=c()
-#    i=1
-#    while(i<=nrow(net)){
-#        this_loop=as.vector(net[i,])
-#        this_sort=sort(this_loop[1:2])
-#        this_tag=paste0(this_sort[1],split='_',this_sort[2])
-#        if(!this_tag %in% old){
-#            new[i]=1    
-#            old=c(old, this_tag)
-#            }
-#        if(i%%10000==1){print(i)}
-#        i=i+1
-#        }
-#    return(net[which(new==1),])     
-#    }
 ############################################
 inferloop.getUniqLoop <-function(net){
     #######################
@@ -143,12 +124,25 @@ inferloop.getUniqLoop <-function(net){
 
 
 
-
-inferloop.inferLoopSignal<-function(mat, net, sep='.And.'){
+inferloop.inferLoopSignal<-function(mat, net, r=0,sep='.And.'){
+    library(hash)
+    r=r # default r=0
     sep=sep
     mat=as.matrix(mat)
     net=as.matrix(net)
     tag=rownames(mat)
+    net=net[which(net[,1] %in% tag & net[,2] %in% tag),]
+    #######################################
+    print('hashing...')
+    h=hash(keys=tag,values=rep(0,nrow(mat)))
+    i=1
+    while(i<=nrow(mat)){
+        this_tag=tag[i]
+        this_v=as.numeric(mat[i,])
+        .set(h, keys=this_tag, values=this_v)
+        i=i+1}
+    #######################################
+    print('calculating ILS...')
     out=matrix(0,ncol=ncol(mat),nrow=nrow(net))
     colnames(out)=colnames(mat)
     rownames(out)=paste0(net[,1],sep,net[,2])
@@ -156,17 +150,16 @@ inferloop.inferLoopSignal<-function(mat, net, sep='.And.'){
     while(i<=nrow(net)){
         this_tag1=net[i,1]
         this_tag2=net[i,2]
-        this_index1=which(tag == this_tag1)
-        this_index2=which(tag == this_tag2)
-        if( (!is.null(this_index1)) & (!is.null(this_index2)) ){
-            x=as.vector(mat[this_index1,])
-            y=as.vector(mat[this_index2,])
-            z=inferloop.calILS(x,y,r=0)
-            out[i,]=z
-            } 
+        #######################
+        x=as.vector(values(h, this_tag1)[,1])
+        y=as.vector(values(h, this_tag2)[,1])
+        z=inferloop.calILS(x,y,r=r)
+        out[i,]=z
+        ########################
         if(i%%10000==1){print(paste0(i,' / ',nrow(net)))}
         i=i+1}
-        return(out)
+    print('finished!')
+    return(out)
     }
 
 ########################################

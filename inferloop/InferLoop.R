@@ -94,25 +94,53 @@ inferloop.calILS<-function(X, Y, r=0){
 
 
 #####################
-
+#inferloop.getUniqLoop <-function(net){
+#    net=as.matrix(net)
+#    new=rep(0,nrow(net))
+#    old=c()
+#    i=1
+#    while(i<=nrow(net)){
+#        this_loop=as.vector(net[i,])
+#        this_sort=sort(this_loop[1:2])
+#        this_tag=paste0(this_sort[1],split='_',this_sort[2])
+#        if(!this_tag %in% old){
+#            new[i]=1    
+#            old=c(old, this_tag)
+#            }
+#        if(i%%10000==1){print(i)}
+#        i=i+1
+#        }
+#    return(net[which(new==1),])     
+#    }
+############################################
 inferloop.getUniqLoop <-function(net){
-    net=as.matrix(net)
-    new=rep(0,nrow(net))
-    old=c()
+    #######################
+    library(hash)
+    tmp1=t(as.matrix(net[,c(1,2)]))
+    print('sorting ends of each loop...')
+    tmp2=apply(tmp1,2,sort)
+    tag=apply(tmp2,2,paste0,collapse='.And.')
+    utag=unique(tag)
+    ####################
+    print('hashing...')
+    h=hash(keys=utag, values=rep(0,length(utag)))
+    ###################
+    print('getting unique loop...')
+    flag=rep(0,nrow(net))
     i=1
     while(i<=nrow(net)){
-        this_loop=as.vector(net[i,])
-        this_sort=sort(this_loop[1:2])
-        this_tag=paste0(this_sort[1],split='_',this_sort[2])
-        if(!this_tag %in% old){
-            new[i]=1    
-            old=c(old, this_tag)
-            }
-        if(i%%10000==1){print(i)}
-        i=i+1
-        }
-    return(net[which(new==1),])     
+        this_tag=tag[i]
+        this_v=as.numeric(values(h, this_tag))
+        if(this_v>0){flag[i]=1}
+        .set(h, keys=this_tag, values=this_v+1)
+        if(i %%50000==1){print(i)}
+        i=i+1}
+    out=net[which(flag==0),]
+    return()
     }
+
+
+
 
 
 inferloop.inferLoopSignal<-function(mat, net, sep='.And.'){

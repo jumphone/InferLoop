@@ -133,7 +133,7 @@ inferloop.getUniqLoop <-function(net){
         this_v=as.numeric(values(h, this_tag))
         if(this_v>0){flag[i]=1}
         .set(h, keys=this_tag, values=this_v+1)
-        if(i %%50000==1){print(i)}
+        if(i %%50000==1){print(paste0(i,' / ',nrow(net)))}
         i=i+1}
     out=net[which(flag==0),]
     print('finished!')

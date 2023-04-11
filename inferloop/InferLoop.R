@@ -136,7 +136,8 @@ inferloop.getUniqLoop <-function(net){
         if(i %%50000==1){print(i)}
         i=i+1}
     out=net[which(flag==0),]
-    return()
+    print('finished!')
+    return(out)
     }
 
 

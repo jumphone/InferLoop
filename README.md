@@ -270,7 +270,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     mat=inferloop.loadSignal('mat.txt')
     net=read.table('net.txt',sep='\t',header=F,row.names=NULL)
     net_uniq=inferloop.getUniqLoop(net)
-    MAT=inferloop.inferLoopSignal(mat, net_uniq)
+    MAT=inferloop.inferLoopSignal(mat, net_uniq, r=0)
     write.table(MAT,file='signal_mat.txt', row.names=T,col.names=T,quote=F,sep='\t')
     
 </br>

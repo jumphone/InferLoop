@@ -92,8 +92,6 @@ inferloop.calILS<-function(X, Y, r=0){
 
 
 
-
-############################################
 inferloop.getUniqLoop <-function(net){
     #######################
     library(hash)
@@ -117,10 +115,10 @@ inferloop.getUniqLoop <-function(net){
         if(i %%50000==1){print(paste0(i,' / ',nrow(net)))}
         i=i+1}
     out=net[which(flag==0),]
+    print(paste0('Number of unique loops: ',nrow(out)))
     print('finished!')
     return(out)
     }
-
 
 
 
@@ -161,6 +159,9 @@ inferloop.inferLoopSignal<-function(mat, net, r=0,sep='.And.'){
     print('finished!')
     return(out)
     }
+
+
+
 
 ########################################
 
@@ -241,24 +242,27 @@ inferloop.writeNet <-function(conns, output_path,  cut=400000){
 
 ##############################################################################
 
-inferloop.generateBin<-function(indata, used_coords, n=100, seed=123){
+
+inferloop.generateBin <- function(indata, used_coords, n=100, seed=123, type=NULL){
     DATA=indata
     used_coords=used_coords
+    if(is.null(type)==FALSE){
+        type_coords=as.numeric(as.factor(type))*10
+        used_coords=cbind(used_coords, type_coords)
+        }
     n=n
     set.seed(seed)
     KM=kmeans(used_coords,centers=n)
     CLST=KM$cluster
     names(CLST)=colnames(indata)
     OUT=.generate_mean(DATA, CLST)
-    #file1=paste0(output_path,'.mat.txt')
-    #file2=paste0(output_path,'.clst.rds')
-    #write.table(OUT,file=file1, row.names=T,col.names=T,quote=F,sep='\t')
-    #saveRDS(CLST, file=file2)
+    ##########################
     RETURN=list()
     RETURN$mat=OUT
     RETURN$clst=CLST
     return(RETURN)
     }
+
 
 
 inferloop.bin2cell <-function(signal_mat, clst){

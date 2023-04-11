@@ -262,7 +262,8 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     mkdir output
     python3 inferloop/step0_uniqNet.py net.txt output/net_uniq.txt
     python3 inferloop/step1_buildIndex.py output/net_uniq.txt mat.txt output/mat.index
-    python3 inferloop/step2_runInferLoop.py output/mat.index output/signal_mat.txt
+    python3 inferloop/step2_runInferLoop.py output/mat.index output/signal_mat.txt 
+    # Users can modify "inferloop/step2_runInferLoop.py" to adjust the parameter "r"
 
 #### R version
 

@@ -13,7 +13,7 @@ Section| Content | Platform
 Section I | [Using Signac to process the scATAC-seq data](#section-i-using-signac-to-process-the-scatac-seq-data) | R
 Section II | [Using Cicero to predict global loops](#section-ii-using-cicero-to-predict-global-loops) | R
 Section III | [Preparing input files of InferLoop](#section-iii-preparing-input-files-of-inferloop) | R
-Section IV ( Core Step ) | [Using InferLoop to infer loop signals](#section-iv-using-inferloop-to-infer-loop-signals) | Python3 or R
+**Section IV ( Core )** | [Using InferLoop to infer loop signals](#section-iv-using-inferloop-to-infer-loop-signals) | R or Python3
 Section V | [Generating cell-type specific loop signals](#section-v-inferring-cell-type-specific-loop-signals) | R
 Section VI | [Identifying cell-type specific loops](#section-vi-identifying-cell-type-specific-loops) | R
 
@@ -257,14 +257,6 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 
 [Download 'mat.txt' and 'net.txt' of demo data](https://sourceforge.net/projects/inferloop/files/demo/)
 
-#### Python3 version
-
-    mkdir output
-    python3 inferloop/step0_uniqNet.py net.txt output/net_uniq.txt
-    python3 inferloop/step1_buildIndex.py output/net_uniq.txt mat.txt output/mat.index
-    python3 inferloop/step2_runInferLoop.py output/mat.index output/signal_mat.txt 
-    # In order to adjust the parameter "r", users can modify "R" in "inferloop/step2_runInferLoop.py" 
-
 #### R version
 
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
@@ -274,6 +266,14 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     MAT=inferloop.inferLoopSignal(mat, net_uniq, r=0)
     write.table(MAT,file='signal_mat.txt', row.names=T,col.names=T,quote=F,sep='\t')
     
+#### Python3 version
+
+    mkdir output
+    python3 inferloop/step0_uniqNet.py net.txt output/net_uniq.txt
+    python3 inferloop/step1_buildIndex.py output/net_uniq.txt mat.txt output/mat.index
+    python3 inferloop/step2_runInferLoop.py output/mat.index output/signal_mat.txt 
+    # In order to adjust the parameter "r", users can modify "R" in "inferloop/step2_runInferLoop.py" 
+
 </br>
 
 [Click back to the top](#)

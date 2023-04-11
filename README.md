@@ -26,6 +26,7 @@ Section VI | [Identifying cell-type specific loops](#section-vi-identifying-cell
     library(data.table) # 1.14.2
     library(stringr)    # 1.4.0
     library(parallel)   # 4.2.0
+    library(hash)       # 2.2.6.2
     library(Seurat)     # 4.1.1
     library(Signac)     # 1.7.0
     library(monocle)    # 2.24.1

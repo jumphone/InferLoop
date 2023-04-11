@@ -264,7 +264,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     python3 inferloop/step1_buildIndex.py output/net_uniq.txt mat.txt output/mat.index
     python3 inferloop/step2_runInferLoop.py output/mat.index output/signal_mat.txt
 
-#### R version, this version (~5 minutes) is slower than using Pyhton3 (~1 minute)
+#### R version
 
     source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
     mat=inferloop.loadSignal('mat.txt')

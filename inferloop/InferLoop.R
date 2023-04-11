@@ -7,7 +7,7 @@ library(monocle)
 library(cicero)
 #cicero for monocle2, https://cole-trapnell-lab.github.io/cicero-release/docs/
 library(glassoFast)
-
+library(hash)
 
 
 inferloop.bed2granges<-function(bed){

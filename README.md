@@ -247,6 +247,8 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 
 </br>
 
+[Demo of 'mat.txt' and 'net.txt', https://sourceforge.net/projects/inferloop/files/demo/](https://sourceforge.net/projects/inferloop/files/demo/)
+
 [Click back to the top](#)
 
 </br>

@@ -109,7 +109,7 @@ inferloop.getUniqLoop <-function(net){
     i=1
     while(i<=nrow(net)){
         this_tag=tag[i]
-        this_v=as.numeric(hash::values(h, this_tag))
+        this_v=as.numeric(hash::values(x=h, keys=this_tag))
         if(this_v>0){flag[i]=1}
         .set(h, keys=this_tag, values=this_v+1)
         if(i %%50000==1){print(paste0(i,' / ',nrow(net)))}
@@ -149,8 +149,8 @@ inferloop.inferLoopSignal<-function(mat, net, r=0,sep='.And.'){
         this_tag1=net[i,1]
         this_tag2=net[i,2]
         #######################
-        x=as.vector(hash::values(h, this_tag1)[,1])
-        y=as.vector(hash::values(h, this_tag2)[,1])
+        x=as.vector(hash::values(x=h, keys=this_tag1)[,1])
+        y=as.vector(hash::values(x=h, keys=this_tag2)[,1])
         z=inferloop.calILS(x,y,r=r)
         out[i,]=z
         ########################

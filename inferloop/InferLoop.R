@@ -504,13 +504,3 @@ inferloop.cicero<-function(indata, used_coords, genome.df, window=5e+05,sample_n
 
 
 
-
-
-
-
-
-
-
-
-
-

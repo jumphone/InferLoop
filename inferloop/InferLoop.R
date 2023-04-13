@@ -467,7 +467,6 @@ generate_cicero_models<-function (cds, distance_parameter, s = 0.75, window = 5e
 
 
 
-
 inferloop.cicero<-function(indata, used_coords, genome.df, k=50, window=5e+05,sample_num=100){
     indata=as.matrix(indata)
     used_coords=used_coords
@@ -499,12 +498,145 @@ inferloop.cicero<-function(indata, used_coords, genome.df, k=50, window=5e+05,sa
 
 
 
+######################################
+# Archr
+
+archr.computeKNN <- function(
+  data = NULL,
+  query = NULL,
+  k = 50,
+  includeSelf = FALSE,
+  ...
+  ){
+  if(is.null(query)){
+    query <- data
+    searchSelf <- TRUE
+  }else{
+    searchSelf <- FALSE
+  }
+  if(searchSelf & !includeSelf){
+    knnIdx <- nabor::knn(data = data, query = query, k = k + 1, ...)$nn.idx
+    knnIdx <- knnIdx[,-1,drop=FALSE]
+  }else{
+    knnIdx <- nabor::knn(data = data, query = query, k = k, ...)$nn.idx
+  }
+  knnIdx
+}
 
 
+archr.getQuantiles <- function(v = NULL, len = length(v)){
+  if(length(v) < len){
+    v2 <- rep(0, len)
+    v2[seq_along(v)] <- v
+  }else{
+    v2 <- v
+  }
+  p <- trunc(rank(v2))/length(v2)
+  if(length(v) < len){
+    p <- p[seq_along(v)]
+  }
+  return(p)
+}
 
 
+determineOverlapCpp <- function(m, overlapCut) {
+    .Call('_ArchR_determineOverlapCpp', PACKAGE = 'ArchR', m, overlapCut)
+}
+
+rowCorCpp <- function(idxX, idxY, X, Y) {
+    .Call('_ArchR_rowCorCpp', PACKAGE = 'ArchR', idxX, idxY, X, Y)
+}
 
 
+inferloop.archrCoA<-function(MAT,VEC,k=50,maxDist=500000,SEED=123){
+    MAT=MAT
+    VEC=VEC
+    SEED=SEED
+    set.seed(SEED)
+    k = k
+    knnIteration = 500
+    overlapCutoff = 0.8
+    maxDist = maxDist
+    scaleTo = 10^4
+    log2Norm = TRUE
+    threads = 10
+    verbose = TRUE
+    #################
+
+    rD=VEC
+    idx <- sample(seq_len(nrow(rD)), knnIteration, replace = !nrow(rD) >= knnIteration)
+    knnObj <- archr.computeKNN(data = rD, query = rD[idx,], k = k)
+    keepKnn <- determineOverlapCpp(knnObj, floor(overlapCutoff * k))
+    knnObj <- knnObj[keepKnn==0,]
+    knnObj <- lapply(seq_len(nrow(knnObj)), function(x){
+        rownames(rD)[knnObj[x, ]]
+          }) %>% SimpleList
+    peak=rownames(MAT)
+    bed=inferloop.splitLoop(peak,'-',3)
+    bed=as.data.frame(bed)
+    colnames(bed)=c('chr','start','end')
+    bed$start=as.integer(bed$start)
+    bed$end=as.integer(bed$end)
+    peakSet <- with(bed, GRanges(chr, IRanges(start, end)))
+    peakSet$idx=c(1:nrow(bed))
+    peakSummits <- resize(peakSet, 1, "center")
+    peakWindows <- resize(peakSummits, 2*maxDist + 1, "center")
+
+    o <- DataFrame(findOverlaps(peakSummits, peakWindows, ignore.strand = TRUE))
+    o <- o[o[,1] != o[,2],]
+    o$seqnames <- seqnames(peakSet)[o[,1]]
+    o$idx1 <- peakSet$idx[o[,1]]
+    o$idx2 <- peakSet$idx[o[,2]]
+    o$correlation <- -999.999
+    o$Variability1 <- 0.000
+    o$Variability2 <- 0.000
+
+    umat=MAT[,unlist(knnObj)]
+    gmat=.generate_mean(umat, rep(1:length(knnObj),each=k))
+    gS=colSums(gmat)
+    groupMat=gmat
+    groupMat <- t(t(groupMat) / gS) * scaleTo
+        if(log2Norm){
+            groupMat <- log2(groupMat + 1)
+            }
+
+    CHR=bed[,1]
+    chri <- gtools::mixedsort(unique(paste0(seqnames(peakSet))))
+
+    for(x in seq_along(chri)){
+        this_chr=chri[x]
+        print(this_chr)
+        this_row_index=which(CHR %in% this_chr)
+        #Correlations
+        idx <- BiocGenerics::which(o$seqnames==chri[x])
+        corVals <- rowCorCpp(idxX = o[idx,]$idx1, idxY = o[idx,]$idx2, X = as.matrix(groupMat), Y = as.matrix(groupMat))
+        rowVars <- as.numeric(matrixStats::rowVars(groupMat))
+        o[idx,]$correlation <- as.numeric(corVals)
+        o[idx,]$Variability1 <- rowVars[o[idx,]$idx1]
+        o[idx,]$Variability2 <- rowVars[o[idx,]$idx2]
+        }
+    o$idx1 <- NULL
+    o$idx2 <- NULL
+    o <- o[!is.na(o$correlation),]
+    o$TStat <- (o$correlation / sqrt((pmax(1-o$correlation^2, 0.00000000000000001, na.rm = TRUE))/(length(knnObj)-2))) #T-statistic P-value
+    o$Pval <- 2*pt(-abs(o$TStat), length(knnObj) - 2)
+    o$FDR <- p.adjust(o$Pval, method = "fdr")
+
+    o$VarQuantile1 <- archr.getQuantiles(o$Variability1)
+    o$VarQuantile2 <- archr.getQuantiles(o$Variability2)
+    mcols(peakSet) <- NULL
+    o@metadata$peakSet <- peakSet
+
+    o$chr1=o$seqnames
+    o$start1=bed$start[o$queryHits]
+    o$end1=bed$end[o$queryHits]
+    o$chr2=o$seqnames
+    o$start2=bed$start[o$subjectHits]
+    o$end2=bed$end[o$subjectHits]
+    o$distance = abs((o$start1+o$end1)/2-(o$start2+o$end2)/2)
+
+    return(o)
+    }
 
 
 

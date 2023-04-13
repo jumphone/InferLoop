@@ -467,11 +467,13 @@ generate_cicero_models<-function (cds, distance_parameter, s = 0.75, window = 5e
 
 
 
-inferloop.cicero<-function(indata, used_coords, genome.df, window=5e+05,sample_num=100){
+
+inferloop.cicero<-function(indata, used_coords, genome.df, k=50, window=5e+05,sample_num=100){
     indata=as.matrix(indata)
     used_coords=used_coords
     genome.df=genome.df
     window=window
+    k=k
     sample_num=sample_num
     #########################
     library(monocle)
@@ -490,10 +492,12 @@ inferloop.cicero<-function(indata, used_coords, genome.df, window=5e+05,sample_n
                             featureData = fd,
                             expressionFamily=VGAM::binomialff(),
                             lowerDetectionLimit=0))
-    cicero_cds <- make_cicero_cds(input_cds, reduced_coordinates = used_coords, size_factor_normalize = FALSE)
+    cicero_cds <- make_cicero_cds(input_cds, reduced_coordinates = used_coords, k =k, size_factor_normalize = FALSE)
     conns <- .run_cicero_new(cicero_cds, genome.df, window, sample_num)
     return(conns)
     }
+
+
 
 
 

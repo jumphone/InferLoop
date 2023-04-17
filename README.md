@@ -259,7 +259,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 
 #### R version
 
-    source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
+    source('https://sourceforge.net/p/inferloop-1-0-2/code/ci/main/tree/inferloop/InferLoop.R?format=raw')
     mat=inferloop.loadSignal('mat.txt')
     net=read.table('net.txt',sep='\t',header=F,row.names=NULL)
     net_uniq=inferloop.getUniqLoop(net)

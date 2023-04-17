@@ -206,7 +206,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     
     library(monocle)
     library(cicero)
-    source('https://sourceforge.net/p/inferloop-1-0-2/code/ci/main/tree/inferloop/InferLoop.R?format=raw')
+    source('https://raw.githubusercontent.com/jumphone/InferLoop/main/inferloop/InferLoop.R')
     
     pbmc=readRDS(file='pbmc_signac.rds')
     DefaultAssay(pbmc)='macs2'
@@ -228,7 +228,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 
 ### Section III, Preparing input files of InferLoop
     
-    source('https://sourceforge.net/p/inferloop-1-0-2/code/ci/main/tree/inferloop/InferLoop.R?format=raw')
+    source('https://raw.githubusercontent.com/jumphone/InferLoop/main/inferloop/InferLoop.R')
     
     pbmc=readRDS(file='pbmc_signac.rds')
     DefaultAssay(pbmc)='macs2'
@@ -259,7 +259,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 
 #### R version
 
-    source('https://sourceforge.net/p/inferloop-1-0-2/code/ci/main/tree/inferloop/InferLoop.R?format=raw')
+    source('https://raw.githubusercontent.com/jumphone/InferLoop/main/inferloop/InferLoop.R')
     mat=inferloop.loadSignal('mat.txt')
     net=read.table('net.txt',sep='\t',header=F,row.names=NULL)
     net_uniq=inferloop.getUniqLoop(net)
@@ -283,7 +283,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 
 ### Section V, Inferring cell-type specific loop signals
     
-    source('https://sourceforge.net/p/inferloop-1-0-2/code/ci/main/tree/inferloop/InferLoop.R?format=raw')
+    source('https://raw.githubusercontent.com/jumphone/InferLoop/main/inferloop/InferLoop.R')
     
     pbmc=readRDS(file='pbmc_signac.rds')
     DefaultAssay(pbmc)='macs2'

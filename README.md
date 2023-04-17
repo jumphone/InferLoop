@@ -206,7 +206,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     
     library(monocle)
     library(cicero)
-    source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
+    source('https://sourceforge.net/p/inferloop-1-0-2/code/ci/main/tree/inferloop/InferLoop.R?format=raw')
     
     pbmc=readRDS(file='pbmc_signac.rds')
     DefaultAssay(pbmc)='macs2'
@@ -228,7 +228,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 
 ### Section III, Preparing input files of InferLoop
     
-    source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
+    source('https://sourceforge.net/p/inferloop-1-0-2/code/ci/main/tree/inferloop/InferLoop.R?format=raw')
     
     pbmc=readRDS(file='pbmc_signac.rds')
     DefaultAssay(pbmc)='macs2'
@@ -283,7 +283,7 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
 
 ### Section V, Inferring cell-type specific loop signals
     
-    source('https://gitee.com/jumphone/public/raw/master/InferLoop.R')
+    source('https://sourceforge.net/p/inferloop-1-0-2/code/ci/main/tree/inferloop/InferLoop.R?format=raw')
     
     pbmc=readRDS(file='pbmc_signac.rds')
     DefaultAssay(pbmc)='macs2'

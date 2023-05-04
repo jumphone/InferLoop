@@ -1,6 +1,6 @@
 <img src="https://fzhang.bioinfo-lab.com//img/inferloop_logo.jpg" width="250">
 
-**InferLoop: leveraging single-cell chromatin accessibility for the signal of chromatin loop**, ***Briefings in Bioinformatics*, 2023, in press**
+**InferLoop: leveraging single-cell chromatin accessibility for the signal of chromatin loop**, ***Briefings in Bioinformatics*, 2023, [paper](https://doi.org/10.1093/bib/bbad166)**
 
 This tool is designed for inferring loop signals of cell clusters (bins) or individual cells (high depth) using scATAC-seq data
 

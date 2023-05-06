@@ -55,18 +55,23 @@ inferloop.calABCD<-function(X, Y, X_base, Y_base){
 
 
 
-inferloop.calILS<-function(X, Y, r=0){
+
+inferloop.calILS<-function(X, Y, r=0, only_pos=FALSE){
     X=X
     Y=Y
+    r=r
+    only_pos=only_pos
     ############################
     # Ensure positive value
-    if(min(X)<0 | min(Y)<0){
+    if( min(X)<0 ){
         X = X - min(inferloop.rmOut(X))
-        Y = Y - min(inferloop.rmOut(Y))
         X[which(X<0)]=0
+        }
+    if( min(Y)<0 ){
+        Y = Y - min(inferloop.rmOut(Y))
         Y[which(Y<0)]=0
         }
-    ###########################3
+    #############################
     r=r
     N=length(X)
     ############################
@@ -86,9 +91,13 @@ inferloop.calILS<-function(X, Y, r=0){
     M = D_plus - D
     S = (1-D**2)/(N-1)
     ###########################
-    ILS = M / S 
+    ILS = M / S
+    ILS[which(is.na(ILS))]=0
+    if(only_pos==TRUE){ILS[which(ILS<0)]=0 }
     return( ILS )
     }
+
+
 
 
 

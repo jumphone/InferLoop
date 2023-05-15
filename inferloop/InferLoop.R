@@ -648,4 +648,26 @@ inferloop.archrCoA<-function(MAT,VEC,k=50,maxDist=500000,SEED=123){
     }
 
 
+###################################################
+
+.cart2clock<-function(x,y,circle){
+    phi <- (atan(x/y)/2/pi * circle + ifelse(y >= 0, circle,1.5 * circle))
+    phi <- phi %% circle
+    output=data.frame(rho = sqrt(x * x + y * y), phi = phi)
+    output=as.matrix(output)
+    return(output)
+    }
+
+.clock2cart<-function(rho, phi, circle){
+    output=data.frame(x = rho * sin(phi/circle * 2 * pi), y = rho *
+        cos(phi/circle * 2 * pi))
+    output=as.matrix(output)
+    return(output)
+    }
+
+
+
+
+
+
 

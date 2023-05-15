@@ -716,7 +716,7 @@ inferloop.splitILS<-function(X, Y, r=0){
     CUT_ANGLE=ANGLE_order[which(FLAG_order>0)]
     ############################
     CLST=rep(1,length(ANGLE))
-    if(max(CUT_ANGLE)-min(CUT_ANGLE)>90){
+    if(max(CUT_ANGLE)-min(CUT_ANGLE)>180){
         CLST[which(ANGLE>max(CUT_ANGLE))]=1
         }else{
         CLST[which(ANGLE>max(CUT_ANGLE))]=length(CUT_ANGLE)+1

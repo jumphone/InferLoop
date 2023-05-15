@@ -667,6 +667,73 @@ inferloop.archrCoA<-function(MAT,VEC,k=50,maxDist=500000,SEED=123){
 
 
 
+inferloop.splitILS<-function(X, Y, r=0){
+    X=X
+    Y=Y
+    r=r
+    #######################
+    X_mean = mean(X)
+    Y_mean = mean(Y)
+    X_base = X_mean * r
+    Y_base = Y_mean * r
+    X_delta = X - X_base
+    Y_delta = Y - Y_base
+    ######################
+    ILS=inferloop.calILS(X,Y,r)
+    #######################
+    CVEC=.cart2clock(X_delta,Y_delta,360)
+    CVEC[which(is.na(CVEC))]=0
+    ANGLE=CVEC[,2]
+    ##############################
+    ILS_FLAG=rep(-1,length(ILS))
+    ILS_FLAG[which(ILS>0)]=1
+    #############################
+    this_order=order(ANGLE)
+    ANGLE_order=ANGLE[this_order]
+    ILS_FLAG_order=ILS_FLAG[this_order]
+    ILS_FLAG_order_fat=c(ILS_FLAG_order[length(ILS_FLAG_order)],
+                         ILS_FLAG_order,
+                         ILS_FLAG_order[1])
+    ###################################################
+    i=2
+    while(i<length(ILS_FLAG_order_fat)){
+        this_before=ILS_FLAG_order_fat[i-1]
+        this_after=ILS_FLAG_order_fat[i+1]
+        this_ils=ILS_FLAG_order_fat[i]
+        if(this_before==this_after){this_ils=this_before}
+        ILS_FLAG_order_fat[i]=this_ils
+        i=i+1}
+ ######################################################
+    FLAG_order_fat=rep(0,length(ILS_FLAG_order_fat))
+    i=2
+    while(i<length(ILS_FLAG_order_fat)){
+        this_before=ILS_FLAG_order_fat[i-1]
+        this_after=ILS_FLAG_order_fat[i+1]
+        if(this_before!=this_after & FLAG_order_fat[i-1]!=1){FLAG_order_fat[i]=1}
+        i=i+1}
+    FLAG_order=FLAG_order_fat[2:(length(ILS_FLAG_order)+1)]
+    ##############################
+    CUT_ANGLE=ANGLE_order[which(FLAG_order>0)]
+    ############################
+    CLST=rep(1,length(ANGLE))
+    if(max(CUT_ANGLE)-min(CUT_ANGLE)>90){
+        CLST[which(ANGLE>max(CUT_ANGLE))]=1
+        }else{
+        CLST[which(ANGLE>max(CUT_ANGLE))]=length(CUT_ANGLE)+1
+        }
+    i=1
+    while(i<length(CUT_ANGLE)){
+        this_lw=CUT_ANGLE[i]
+        this_up=CUT_ANGLE[i+1]
+        CLST[which(ANGLE>this_lw & ANGLE <= this_up)]=i+1
+        i=i+1}
+    #########################
+    OUT=list()
+    OUT$ils=ILS
+    OUT$clst=CLST
+    return(OUT)
+    }
+
 
 
 

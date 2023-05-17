@@ -691,18 +691,15 @@ inferloop.splitILS<-function(X, Y, r=0){
     this_order=order(ANGLE)
     ANGLE_order=ANGLE[this_order]
     ILS_FLAG_order=ILS_FLAG[this_order]
-    ILS_FLAG_order_fat=c(ILS_FLAG_order[length(ILS_FLAG_order)],
-                         ILS_FLAG_order,
-                         ILS_FLAG_order[1])
-    ###################################################
-    i=2
-    while(i<length(ILS_FLAG_order_fat)){
-        this_before=ILS_FLAG_order_fat[i-1]
-        this_after=ILS_FLAG_order_fat[i+1]
-        this_ils=ILS_FLAG_order_fat[i]
-        if(this_before==this_after){this_ils=this_before}
-        ILS_FLAG_order_fat[i]=this_ils
-        i=i+1}
+    ##############################
+    SM_ILS_FLAG_order=smooth.spline(ILS_FLAG_order)$y
+    SM_ILS_FLAG_order_fat=c(SM_ILS_FLAG_order[length(SM_ILS_FLAG_order)],
+                         SM_ILS_FLAG_order,
+                         SM_ILS_FLAG_order[1])
+    #################################################
+    ILS_FLAG_order_fat=SM_ILS_FLAG_order_fat
+    ILS_FLAG_order_fat[which(SM_ILS_FLAG_order_fat>0)]=1
+    ILS_FLAG_order_fat[which(SM_ILS_FLAG_order_fat<=0)]=-1
     ######################################################
     FLAG_order_fat=rep(0,length(ILS_FLAG_order_fat))
     i=2

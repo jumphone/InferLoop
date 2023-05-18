@@ -698,7 +698,7 @@ inferloop.splitILS<-function(X, Y, r=0){
     ######################
     ILS=inferloop.calILS(X,Y,r)
     #######################
-    CVEC=.cart2clock(X_delta,Y_delta,360)
+    CVEC=as.matrix(.cart2clock(X_delta,Y_delta,360))
     CVEC[which(is.na(CVEC))]=0
     ANGLE=CVEC[,2]
     ##############################

@@ -759,6 +759,82 @@ inferloop.splitILS<-function(X, Y, r=0){
     return(OUT)
     }
 
+#######################################
+#20230519
+
+
+inferloop.calD <-function(X, Y, r=0){
+    X=X
+    Y=Y
+    r=r
+    ############################
+    # Ensure positive value
+    if( min(X)<0 ){
+        X = X - min(inferloop.rmOut(X))
+        X[which(X<0)]=0
+        }
+    if( min(Y)<0 ){
+        Y = Y - min(inferloop.rmOut(Y))
+        Y[which(Y<0)]=0
+        }
+    #############################
+    r=r
+    N=length(X)
+    ############################
+    X_mean = mean(X)
+    Y_mean = mean(Y)
+    ###########################
+    X_base = X_mean * r
+    Y_base = Y_mean * r
+    X_delta = X - X_base
+    Y_delta = Y - Y_base
+    ###########################
+    ABCD = inferloop.calABCD(X, Y, X_base, Y_base)
+    ###########################
+    D = ABCD[['D']]
+    return(D)
+    }
+
+
+inferloop.inferD<-function(mat, net, r=0,sep='.And.'){
+    library(hash)
+    r=r # default r=0
+    sep=sep
+    ###################
+    mat=as.matrix(mat)
+    net=as.matrix(net)
+    tag=rownames(mat)
+    net=net[which(net[,1] %in% tag & net[,2] %in% tag),]
+    #######################################
+    print('hashing...')
+    h=hash(keys=tag,values=rep(0,nrow(mat)))
+    i=1
+    while(i<=nrow(mat)){
+        this_tag=tag[i]
+        this_v=as.numeric(mat[i,])
+        .set(h, keys=this_tag, values=this_v)
+        i=i+1}
+    #######################################
+    print('calculating ILS...')
+    out=matrix(0,ncol=1,nrow=nrow(net))
+    colnames(out)='D'
+    rownames(out)=paste0(net[,1],sep,net[,2])
+    i=1
+    while(i<=nrow(net)){
+        this_tag1=net[i,1]
+        this_tag2=net[i,2]
+        #######################
+        x=as.vector(hash::values(x=h, keys=this_tag1)[,1])
+        y=as.vector(hash::values(x=h, keys=this_tag2)[,1])
+        z=inferloop.calD(x,y,r=r)
+        out[i,]=z
+        ########################
+        if(i%%10000==1){print(paste0(i,' / ',nrow(net)))}
+        i=i+1}
+    print('finished!')
+    return(out)
+    }
+
 
 
 

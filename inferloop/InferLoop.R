@@ -689,6 +689,17 @@ inferloop.splitILS<-function(X, Y, r=0){
     Y=Y
     r=r
     #######################
+    ############################
+    # Ensure positive value
+    if( min(X)<0 ){
+        X = X - min(inferloop.rmOut(X))
+        X[which(X<0)]=0
+        }
+    if( min(Y)<0 ){
+        Y = Y - min(inferloop.rmOut(Y))
+        Y[which(Y<0)]=0
+        }
+    #######################
     X_mean = mean(X)
     Y_mean = mean(Y)
     X_base = X_mean * r

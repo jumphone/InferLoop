@@ -446,6 +446,15 @@ Annotation reference | [pbmc_10k_v3.rds](https://signac-objects.s3.amazonaws.com
     
     
 
+<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="50">
+
+-------------------------------------------------------------------------------------------------------------------
+
+<img src="https://fzhang.bioinfo-lab.com/img/panda_happy_logo.png" height='150'>
+
+#### More tools & studies: https://fzhang.bioinfo-lab.com/
+
+
     
     
     
